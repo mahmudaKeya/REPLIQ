@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ company.name }}</h1>
+  <p>Address: {{ company.address }}</p>
+  <p>Contact: {{ company.contact }}</p>
+
+  <h2>Employees</h2>
+  <ul>
+    {% for employee in employees %}
+      <li>{{ employee.first_name }} {{ employee.last_name }}</li>
+    {% empty %}
+      <li>No employees found.</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Devices</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Device Name</th>
+        <th>Serial Number</th>
+        <th>Status</th>
+        <th>Assigned To</th>
+        <th>Assigned Date</th>
+        <th>Return Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for device in devices %}
+        <tr>
+          <td>{{ device.name }}</td>
+          <td>{{ device.serial_number }}</td>
+          <td>{{ device.get_status_display }}</td>
+          <td>{{ device.assigned_to }}</td>
+          <td>{{ device.assigned_date|date:"F d, Y" }}</td>
+          <td>{{ device.return_date|date:"F d, Y" }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">No devices found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
